@@ -16,7 +16,6 @@ client_socket.connect(('localhost', 12345))
 
 public_pem = client_socket.recv(4096)
 
-
 public_key = serialization.load_pem_public_key(
     public_pem, backend=default_backend())
 
@@ -35,8 +34,7 @@ try:
     client_socket.sendall(encrypted_service_id)
     print("Service sent:", service_id)
     print("encrpted data:", encrypted_service_id)
-
 except:
     print("Failed to send Service ID")
-client_socket.close
 
+client_socket.close

@@ -13,8 +13,12 @@ public_key = private_key.public_key()
 
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client_socket.connect(('localhost', 5555))
-try: public_pem = client_socket.recv(4096)
-except:print("failed")
+
+try: 
+    public_pem = client_socket.recv(4096)
+except:
+    print("failed")
+
 challenge = client_socket.recv(4096)
 print(challenge)
 public_key = serialization.load_pem_public_key(public_pem, backend=default_backend())
@@ -33,7 +37,6 @@ print("\n")
 print(signature)
 client_socket.sendall(signature)
 
-
 public_pem2 = public_key.public_bytes(
     encoding=serialization.Encoding.PEM,
     format=serialization.PublicFormat.SubjectPublicKeyInfo,
@@ -41,4 +44,3 @@ public_pem2 = public_key.public_bytes(
 client_socket.sendall(public_pem2)
 
 client_socket.close
-
